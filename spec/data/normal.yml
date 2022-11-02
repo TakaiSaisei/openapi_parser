@@ -266,6 +266,15 @@ paths:
                   nullable: true
                   oneOf:
                     - type: integer
+                one_of_array_with_const:
+                  type: array
+                  items:
+                    type: string
+                    oneOf:
+                      - title: object1
+                        const: object1
+                      - title: object2
+                        const: object2
                 object_1:
                   type: object
                   properties:

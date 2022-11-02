@@ -493,6 +493,22 @@ RSpec.describe OpenAPIParser::SchemaValidator do
           it { expect { subject }.to raise_error(OpenAPIParser::NotOneOf) }
         end
       end
+
+      context 'array with const' do
+        subject { request_operation.validate_request_body(content_type, { 'one_of_array_with_const' => params }) }
+
+        context 'correct params' do
+          let(:params) { ['object1'] }
+
+          it { expect(subject).to eq({ 'one_of_array_with_const' => ['object1'] }) }
+        end
+
+        context 'incorrect params' do
+          let(:params) { ['foo'] }
+
+          it { expect { subject }.to raise_error(OpenAPIParser::NotOneOf) }
+        end
+      end
     end
 
     it 'unknown param' do

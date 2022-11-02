@@ -58,6 +58,9 @@ module OpenAPIParser::Schemas
     # @!attribute [r] example
     #   @return [Object, nil]
 
+    # @!attribute [r] const
+    #   @return [Object, nil]
+
     openapi_attr_values :title, :multipleOf,
                         :maximum, :exclusiveMaximum, :minimum, :exclusiveMinimum,
                         :maxLength, :minLength,
@@ -71,7 +74,8 @@ module OpenAPIParser::Schemas
                         :type,
                         :nullable,
                         :example,
-                        :deprecated
+                        :deprecated,
+                        :const
 
     # @!attribute [r] read_only
     #   @return [Boolean, nil]

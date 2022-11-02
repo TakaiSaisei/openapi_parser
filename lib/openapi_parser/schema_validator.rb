@@ -13,6 +13,7 @@ require_relative 'schema_validators/all_of_validator'
 require_relative 'schema_validators/one_of_validator'
 require_relative 'schema_validators/nil_validator'
 require_relative 'schema_validators/unspecified_type_validator'
+require_relative 'schema_validators/const_validator'
 
 class OpenAPIParser::SchemaValidator
   # validate value by schema
@@ -98,6 +99,7 @@ class OpenAPIParser::SchemaValidator
       return any_of_validator if schema.any_of
       return all_of_validator if schema.all_of
       return one_of_validator if schema.one_of
+      return const_validator if schema.const
       return nil_validator if value.nil?
 
       case schema.type
@@ -160,5 +162,9 @@ class OpenAPIParser::SchemaValidator
 
     def unspecified_type_validator
       @unspecified_type_validator ||= OpenAPIParser::SchemaValidator::UnspecifiedTypeValidator.new(self, @coerce_value)
+    end
+
+    def const_validator
+      @const_validator ||= OpenAPIParser::SchemaValidator::ConstValidator.new(self, @coerce_value)
     end
 end
