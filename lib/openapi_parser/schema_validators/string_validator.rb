@@ -8,7 +8,9 @@ class OpenAPIParser::SchemaValidator
     end
 
     def coerce_and_validate(value, schema, **_keyword_args)
-      return OpenAPIParser::ValidateError.build_error_result(value, schema) unless value.kind_of?(String)
+      unless value.kind_of?(String)
+        return OpenAPIParser::ValidateError.build_error_result(value, schema) if schema.format != 'binary'
+      end
 
       value, err = check_enum_include(value, schema)
       return [nil, err] if err
